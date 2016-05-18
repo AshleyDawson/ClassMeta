@@ -148,6 +148,27 @@ foreach ($constantsMeta as $meta) {
 
 *Note:* The "Default" group will contain metadata that is not assigned a group
 
+Cache
+-----
+
+All metadata can be cached by simply passing a valid Doctrine cache provider to the class meta manager:
+
+```php
+use Doctrine\Common\Cache\FilesystemCache;
+
+$manager = new ClassMetaManager();
+$manager->setCache(new FilesystemCache('/path/to/cache/dir'));
+```
+
+Cache is invalidated using the class modify time, but you can also pass an optional TTL in seconds to the `ClassMetaManager#setCache()` method:
+
+```php
+use Doctrine\Common\Cache\FilesystemCache;
+
+$manager = new ClassMetaManager();
+$manager->setCache(new FilesystemCache('/path/to/cache/dir'), 300); // Cache stale after 5 minutes
+```
+
 Tests
 -----
 
