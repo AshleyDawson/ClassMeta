@@ -3,6 +3,8 @@
 namespace AshleyDawson\ClassMeta;
 
 use AshleyDawson\ClassMeta\Annotation\Meta;
+use Doctrine\Common\Annotations\AnnotationReader;
+use Doctrine\Common\Annotations\AnnotationRegistry;
 use Doctrine\Common\Annotations\DocParser;
 use Doctrine\Common\Annotations\PhpParser;
 use Doctrine\Common\Annotations\Reader as AnnotationReaderInterface;
@@ -45,12 +47,28 @@ class ClassMetaManager implements ClassMetaManagerInterface
     /**
      * Constructor
      *
-     * @param AnnotationReaderInterface $annotationReader
+     * @param bool $initialiseAnnotationLoader
      */
-    public function __construct(AnnotationReaderInterface $annotationReader)
+    public function __construct($initialiseAnnotationLoader = true)
+    {
+        if ($initialiseAnnotationLoader) {
+            AnnotationRegistry::registerLoader('class_exists');
+        }
+        $this->annotationReader = new AnnotationReader();
+        $this->cache = new VoidCache();
+    }
+
+    /**
+     * Set annotationReader
+     *
+     * @param AnnotationReaderInterface $annotationReader
+     * @return $this
+     */
+    public function setAnnotationReader(AnnotationReaderInterface $annotationReader)
     {
         $this->annotationReader = $annotationReader;
-        $this->cache = new VoidCache();
+
+        return $this;
     }
 
     /**

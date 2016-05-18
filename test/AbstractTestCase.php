@@ -4,8 +4,6 @@ namespace AshleyDawson\ClassMeta\Test;
 
 use AshleyDawson\ClassMeta\ClassMetaManager;
 use AshleyDawson\ClassMeta\ClassMetaManagerInterface;
-use Doctrine\Common\Annotations\AnnotationReader;
-use Doctrine\Common\Annotations\AnnotationRegistry;
 use Doctrine\Common\Cache\FilesystemCache;
 
 /**
@@ -22,10 +20,7 @@ abstract class AbstractTestCase extends \PHPUnit_Framework_TestCase
      */
     protected function getMetaManager($isCached = false)
     {
-        AnnotationRegistry::registerLoader('class_exists');
-
-        $reader = new AnnotationReader();
-        $manager = new ClassMetaManager($reader);
+        $manager = new ClassMetaManager();
 
         if ($isCached) {
             $manager->setCache(new FilesystemCache(__DIR__.'/../var/cache'));   
