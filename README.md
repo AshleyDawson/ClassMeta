@@ -66,7 +66,11 @@ $classMeta = $manager->getClassMeta('Acme\Enum\InvoiceStatus');
 
 // "Invoice Status Types" will be echoed
 echo $classMeta->data['name'];
+```
 
+Get constant(s) metadata:
+
+```php
 $constantsMeta = $manager->getClassConstantsMeta('Acme\Enum\InvoiceStatus');
 
 // Echo all constant metadata
@@ -74,14 +78,20 @@ foreach ($constantsMeta as $meta) {
     echo $meta->data['name'] . PHP_EOL;
     echo $meta->data['description'] . PHP_EOL;
 }
+```
 
-// Get individual meta by value (i.e. the value of the constant)
+Get individual meta by value (i.e. the value of the constant):
+
+```php
 $meta = $manager->getClassConstantMetaByValue('Acme\Enum\InvoiceStatus', InvoiceStatus::PAID);
 
 // "Paid" will be echoed
 echo $meta->data['name'];
+```
 
-// Map the collection of constant meta for use in a select drop-down menu, for example:
+Map the collection of constant meta for use in a select drop-down menu, for example:
+
+```php
 $options = $manager->getMappedClassConstantsMeta('Acme\Enum\InvoiceStatus', function (Meta $meta) {
     return [
         $meta->value, 
@@ -152,7 +162,7 @@ foreach ($constantsMeta as $meta) {
 
 $constantsMeta = $manager->getClassConstantsMeta('Acme\Enum\InvoiceStatus', ['Default']);
 
-// Echo only constant metadata in "Default" group (i.e. const PAID = 'paid' metadata)
+// Echo only constant metadata in "Default" group (i.e. `const PAID = 'paid'` metadata)
 foreach ($constantsMeta as $meta) {
     echo $meta->data['name'] . PHP_EOL;
     echo $meta->data['description'] . PHP_EOL;
