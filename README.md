@@ -58,6 +58,7 @@ You can now access the metadata using the class meta manager:
 
 ```php
 use AshleyDawson\ClassMeta\ClassMetaManager;
+use AshleyDawson\ClassMeta\Annotation\Meta;
 
 $manager = new ClassMetaManager();
 
@@ -79,6 +80,20 @@ $meta = $manager->getClassConstantMetaByValue('Acme\Enum\InvoiceStatus', Invoice
 
 // "Paid" will be echoed
 echo $meta->data['name'];
+
+// Map the collection of constant meta for use in a select drop-down menu, for example:
+$options = $manager->getMappedClassConstantsMeta('Acme\Enum\InvoiceStatus', function (Meta $meta) {
+    return [
+        $meta->value, 
+        $meta->data['name'],
+    ];
+});
+
+echo '<select>';
+foreach ($options as $value => $name) {
+    echo "<option value="{$value}">$name</option>";
+}
+echo '</select>';
 ```
 
 Grouped Metadata

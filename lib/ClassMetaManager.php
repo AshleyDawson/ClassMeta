@@ -147,6 +147,20 @@ class ClassMetaManager implements ClassMetaManagerInterface
     /**
      * {@inheritdoc}
      */
+    public function getMappedClassConstantsMeta($class, \Closure $mapper, array $groups = null)
+    {
+        $metas = [];
+        foreach ($this->getClassConstantsMeta($class, $groups) as $meta) {
+            list ($k, $v) = $mapper($meta);
+            $metas[$k] = $v;
+        }
+
+        return $metas;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function getClassConstantMetaByValue($class, $value, array $groups = null)
     {
         $metas = $this->getClassConstantsMeta($class, $groups);

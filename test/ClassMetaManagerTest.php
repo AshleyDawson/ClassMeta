@@ -1,6 +1,7 @@
 <?php
 
 namespace AshleyDawson\ClassMeta\Test;
+use AshleyDawson\ClassMeta\Annotation\Meta;
 
 /**
  * Class ClassMetaManagerTest
@@ -293,5 +294,19 @@ class ClassMetaManagerTest extends AbstractTestCase
 
         $this->assertInstanceOf(self::CUSTOM_META_ANNOTATION_CLASS, $metas['BAZ']);
         $this->assertEquals('Baz thingy', $metas['BAZ']->foo);
+    }
+
+    public function testGetMappedClassConstantsMeta()
+    {
+        $choices = $this
+            ->getMetaManager()
+            ->getMappedClassConstantsMeta('AshleyDawson\ClassMeta\Test\Dummy\DummyInvoice', function (Meta $meta) {
+                return [$meta->value, $meta->data['name']];
+            });
+
+        $this->assertInternalType('array', $choices);
+
+        $this->assertEquals('Draft', $choices['draft']);
+        $this->assertEquals('Sent', $choices['sent']);
     }
 }
