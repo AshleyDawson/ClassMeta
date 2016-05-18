@@ -191,7 +191,7 @@ $manager = new ClassMetaManager();
 $manager->setCache(new FilesystemCache('/path/to/cache/dir'));
 ```
 
-Cache is invalidated using the class modify time, but you can also pass an optional TTL in seconds to the `ClassMetaManager#setCache()` method:
+Cache is invalidated using the class file modify time, but you can also pass an optional TTL in seconds to the `ClassMetaManager#setCache()` method:
 
 ```php
 use Doctrine\Common\Cache\FilesystemCache;
