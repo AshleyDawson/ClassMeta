@@ -73,6 +73,12 @@ foreach ($constantsMeta as $meta) {
     echo $meta->data['name'] . PHP_EOL;
     echo $meta->data['description'] . PHP_EOL;
 }
+
+// Get individual meta by value (i.e. the value of the constant)
+$meta = $manager->getClassConstantMetaByValue('Acme\Enum\InvoiceStatus', InvoiceStatus::PAID);
+
+// "Paid" will be echoed
+echo $meta->data['name'];
 ```
 
 Grouped Metadata
