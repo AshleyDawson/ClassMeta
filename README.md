@@ -4,6 +4,8 @@ Class Meta
 Apply metadata to classes and their constants via annotation. Handy if you need to attach arbitrary data to 
 lookups, enumerations, etc.
 
+[![Build Status](https://travis-ci.org/AshleyDawson/ClassMeta.svg?branch=master)](https://travis-ci.org/AshleyDawson/ClassMeta)
+
 Installation
 ------------
 
