@@ -92,11 +92,22 @@ echo $meta->data['name'];
 Map the collection of constant meta for use in a select drop-down menu, for example:
 
 ```php
-$options = $manager->getMappedClassConstantsMeta('Acme\Enum\InvoiceStatus', function (Meta $meta) {
+$options = $manager->getMappedClassConstantsMeta('Acme\Enum\InvoiceStatus', function (Meta $meta, $i) {
+    
+    // Return items indexed by class constant value
     return [
         $meta->value, 
         $meta->data['name'],
     ];
+    
+    // OR
+    
+    // Return items indexed by an incremental integer, starting at zero
+    return [
+        $i, 
+        $meta->data['name'],
+    ];
+    
 });
 
 echo '<select>';
@@ -105,6 +116,9 @@ foreach ($options as $value => $name) {
 }
 echo '</select>';
 ```
+
+*Note:* The optional argument `$i` passed to the map closure is the iteration number (starting at 0). Useful if you want to index
+the mapped collection instead of return it as an associative array.
 
 Grouped Metadata
 ----------------

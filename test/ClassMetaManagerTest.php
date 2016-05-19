@@ -308,5 +308,16 @@ class ClassMetaManagerTest extends AbstractTestCase
 
         $this->assertEquals('Draft', $choices['draft']);
         $this->assertEquals('Sent', $choices['sent']);
+
+        $choices = $this
+            ->getMetaManager()
+            ->getMappedClassConstantsMeta('AshleyDawson\ClassMeta\Test\Dummy\DummyInvoice', function (Meta $meta, $i) {
+                return [$i, $meta->data['name']];
+            });
+
+        $this->assertInternalType('array', $choices);
+
+        $this->assertEquals('Draft', $choices[0]);
+        $this->assertEquals('Sent', $choices[1]);
     }
 }

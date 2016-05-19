@@ -150,9 +150,12 @@ class ClassMetaManager implements ClassMetaManagerInterface
     public function getMappedClassConstantsMeta($class, \Closure $mapper, array $groups = null)
     {
         $metas = [];
+        $i = 0;
+        
         foreach ($this->getClassConstantsMeta($class, $groups) as $meta) {
-            list ($k, $v) = $mapper($meta);
+            list ($k, $v) = $mapper($meta, $i);
             $metas[$k] = $v;
+            $i ++;
         }
 
         return $metas;
