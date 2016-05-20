@@ -138,22 +138,22 @@ use AshleyDawson\ClassMeta\Annotation\Meta;
 class InvoiceStatus
 {
     /**
-     * @Meta(data={"name"="Draft", "description"="Invoice has not yet been sent to the customer"}, groups={"admin"})
+     * @Meta(data={"name"="Draft", groups={"admin"})
      */
     const DRAFT = 'draft';
     
     /**
-     * @Meta(data={"name"="Sent", "description"="Invoice has been sent to the customer"}, groups={"admin"})
+     * @Meta(data={"name"="Sent", groups={"admin"})
      */
     const SENT = 'sent';
     
     /**
-     * @Meta(data={"name"="Paid", "description"="Invoice has been paid by the customer"})
+     * @Meta(data={"name"="Paid"})
      */
     const PAID = 'paid';
     
     /**
-     * @Meta(data={"name"="Void", "description"="Invoice is void and no longer billable"}, groups={"admin"})
+     * @Meta(data={"name"="Void", groups={"admin"})
      */
     const VOID = 'void';
 }
@@ -171,7 +171,6 @@ $constantsMeta = $manager->getClassConstantsMeta('Acme\Enum\InvoiceStatus', ['ad
 // Echo only constant metadata in "admin" group
 foreach ($constantsMeta as $meta) {
     echo $meta->data['name'] . PHP_EOL;
-    echo $meta->data['description'] . PHP_EOL;
 }
 
 $constantsMeta = $manager->getClassConstantsMeta('Acme\Enum\InvoiceStatus', ['Default']);
@@ -179,7 +178,6 @@ $constantsMeta = $manager->getClassConstantsMeta('Acme\Enum\InvoiceStatus', ['De
 // Echo only constant metadata in "Default" group (i.e. `const PAID = 'paid'` metadata)
 foreach ($constantsMeta as $meta) {
     echo $meta->data['name'] . PHP_EOL;
-    echo $meta->data['description'] . PHP_EOL;
 }
 
 $constantsMeta = $manager->getClassConstantsMeta('Acme\Enum\InvoiceStatus', ['Default', 'admin']);
@@ -187,7 +185,6 @@ $constantsMeta = $manager->getClassConstantsMeta('Acme\Enum\InvoiceStatus', ['De
 // Echo all constant metadata
 foreach ($constantsMeta as $meta) {
     echo $meta->data['name'] . PHP_EOL;
-    echo $meta->data['description'] . PHP_EOL;
 }
 ```
 
