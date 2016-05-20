@@ -138,12 +138,12 @@ use AshleyDawson\ClassMeta\Annotation\Meta;
 class InvoiceStatus
 {
     /**
-     * @Meta(data={"name"="Draft", groups={"admin"})
+     * @Meta(data={"name"="Draft"}, groups={"admin"})
      */
     const DRAFT = 'draft';
     
     /**
-     * @Meta(data={"name"="Sent", groups={"admin"})
+     * @Meta(data={"name"="Sent"}, groups={"admin"})
      */
     const SENT = 'sent';
     
@@ -153,7 +153,7 @@ class InvoiceStatus
     const PAID = 'paid';
     
     /**
-     * @Meta(data={"name"="Void", groups={"admin"})
+     * @Meta(data={"name"="Void"}, groups={"admin"})
      */
     const VOID = 'void';
 }
