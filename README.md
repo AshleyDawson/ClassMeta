@@ -118,7 +118,7 @@ echo '</select>';
 ```
 
 *Note:* The optional argument `$i` passed to the map closure is the iteration number (starting at 0). Useful if you want to index
-the mapped collection instead of return it as an associative array.
+the mapped collection instead of returning it as an associative array.
 
 Grouped Metadata
 ----------------
