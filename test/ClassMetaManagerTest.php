@@ -1,6 +1,7 @@
 <?php
 
 namespace AshleyDawson\ClassMeta\Test;
+
 use AshleyDawson\ClassMeta\Annotation\Meta;
 
 /**
