@@ -190,7 +190,7 @@ foreach ($constantsMeta as $meta) {
 
 *Note:* The "Default" group will contain metadata that is not assigned a group
 
-If you need to get all meta for constants, even if they have groups assigned, use the `_all` special group name, like so:
+If you need to get meta for **all** constants, even if they have groups assigned, use the special `_all` group name, like so:
 
 ```php
 $constantsMeta = $manager->getClassConstantsMeta('Acme\Enum\InvoiceStatus', ['_all']);
