@@ -132,6 +132,15 @@ class ClassMetaManagerTest extends AbstractTestCase
         $this->assertEquals('Invoice is new and not yet sent to customer', $metas['DRAFT']->data['description']);
     }
 
+    public function testGetClassConstantsMetaByGroupUsingAllKeyword()
+    {
+        $metas = $this
+            ->getMetaManager()
+            ->getClassConstantsMeta('AshleyDawson\ClassMeta\Test\Dummy\DummyInvoice', ['_all']);
+
+        $this->assertCount(3, $metas);
+    }
+    
     public function testGetClassConstantsMetaOnSuperclass()
     {
         $metas = $this
