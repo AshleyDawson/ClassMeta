@@ -114,6 +114,12 @@ class ClassMetaManager implements ClassMetaManagerInterface
             $meta->property = $class;
             $meta->value = null;
 
+            if (in_array('_all', $groups)) {
+                $this->cache->save($cacheKey, $meta, $this->cacheTtl);
+
+                return $meta; 
+            }
+            
             foreach ($groups as $group) {
                 if (in_array($group, $meta->groups)) {
                     $this->cache->save($cacheKey, $meta, $this->cacheTtl);
@@ -258,9 +264,13 @@ class ClassMetaManager implements ClassMetaManagerInterface
 
         $meta = [];
         foreach ($constAnnotations as $constAnnotation) {
-            foreach ($groups as $group) {
-                if (in_array($group, $constAnnotation->groups)) {
-                    $meta[$constAnnotation->property] = $constAnnotation;
+            if (in_array('_all', $groups)) {
+                $meta[$constAnnotation->property] = $constAnnotation;
+            } else {
+                foreach ($groups as $group) {
+                    if (in_array($group, $constAnnotation->groups)) {
+                        $meta[$constAnnotation->property] = $constAnnotation;
+                    }
                 }
             }
         }
