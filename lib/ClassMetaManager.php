@@ -236,6 +236,7 @@ class ClassMetaManager implements ClassMetaManagerInterface
         $phpParser = new PhpParser();
         $docParser = new DocParser();
 
+        $docParser->setIgnoreNotImportedAnnotations(true);
         $docParser->setImports($phpParser->parseClass($class));
 
         /** @var Meta[] $constAnnotations */
