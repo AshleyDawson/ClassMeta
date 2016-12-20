@@ -112,7 +112,7 @@ $options = $manager->getMappedClassConstantsMeta('Acme\Enum\InvoiceStatus', func
 
 echo '<select>';
 foreach ($options as $value => $name) {
-    echo "<option value="{$value}">{$name}</option>";
+    echo "<option value=\"{$value}\">{$name}</option>";
 }
 echo '</select>';
 ```
