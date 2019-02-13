@@ -48,6 +48,7 @@ class ClassMetaManager implements ClassMetaManagerInterface
      * Constructor
      *
      * @param bool $initialiseAnnotationLoader
+     * @throws \Doctrine\Common\Annotations\AnnotationException
      */
     public function __construct($initialiseAnnotationLoader = true)
     {
@@ -88,6 +89,7 @@ class ClassMetaManager implements ClassMetaManagerInterface
 
     /**
      * {@inheritdoc}
+     * @throws \ReflectionException
      */
     public function getClassMeta($class, array $groups = null)
     {
@@ -134,6 +136,7 @@ class ClassMetaManager implements ClassMetaManagerInterface
 
     /**
      * {@inheritdoc}
+     * @throws \ReflectionException
      */
     public function getClassConstantsMeta($class, array $groups = null)
     {
@@ -152,6 +155,7 @@ class ClassMetaManager implements ClassMetaManagerInterface
 
     /**
      * {@inheritdoc}
+     * @throws \ReflectionException
      */
     public function getMappedClassConstantsMeta($class, \Closure $mapper, array $groups = null)
     {
@@ -169,6 +173,7 @@ class ClassMetaManager implements ClassMetaManagerInterface
 
     /**
      * {@inheritdoc}
+     * @throws \ReflectionException
      */
     public function getClassConstantMetaByValue($class, $value, array $groups = null)
     {
@@ -188,6 +193,7 @@ class ClassMetaManager implements ClassMetaManagerInterface
      * @param string $class Class name
      * @param array|null $groups
      * @return array
+     * @throws \ReflectionException
      */
     protected function getConstantsMetaForSingleClass($class, array $groups = null)
     {
@@ -206,7 +212,7 @@ class ClassMetaManager implements ClassMetaManagerInterface
 
         $tokens = token_get_all(file_get_contents($filename));
 
-        $doc = $isConst = $comments = null;
+        $doc = $isConst = $isScope = $comments = null;
         foreach ($tokens as $token) {
             @list ($type, $value) = $token;
             switch ($type) {
@@ -215,6 +221,10 @@ class ClassMetaManager implements ClassMetaManagerInterface
                     break;
                 case T_DOC_COMMENT:
                     $doc = $value;
+                    break;
+                case T_PUBLIC:
+                case T_PROTECTED:
+                case T_PRIVATE:
                     break;
                 case T_CONST:
                     $isConst = true;
@@ -251,9 +261,11 @@ class ClassMetaManager implements ClassMetaManagerInterface
                     $annotation = $annotations[0];
 
                     if (!isset($constants[$const])) {
-                        throw new \InvalidArgumentException(
-                            sprintf('Could not find the constant on the class "%s" based on the name "%s"', $class->getName(), $const)
-                        );
+                        throw new \InvalidArgumentException(sprintf(
+                            'Could not find the constant on the class "%s" based on the name "%s"',
+                            $class->getName(),
+                            $const
+                        ));
                     }
 
                     $annotation->property = $const;

@@ -6,11 +6,6 @@ lookups, enumerations, etc.
 
 [![Build Status](https://travis-ci.org/AshleyDawson/ClassMeta.svg?branch=master)](https://travis-ci.org/AshleyDawson/ClassMeta)
 
-To Do
------
-
-* Provide support for scoped class constants, e.g. `public const FOO_BAR = 'baz';`
-
 Installation
 ------------
 

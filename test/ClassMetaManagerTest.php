@@ -330,4 +330,31 @@ class ClassMetaManagerTest extends AbstractTestCase
         $this->assertEquals('Draft', $choices[0]);
         $this->assertEquals('Sent', $choices[1]);
     }
+
+    public function testScopedConstantsClassMeta()
+    {
+        $meta = $this
+            ->getMetaManager()
+            ->getClassConstantsMeta('AshleyDawson\ClassMeta\Test\Dummy\DummyClassScopedConstants')
+        ;
+
+        $this->assertArrayHasKey('SCOPE_PUBLIC', $meta);
+        $this->assertArrayHasKey('SCOPE_PROTECTED', $meta);
+        $this->assertArrayHasKey('SCOPE_PRIVATE', $meta);
+
+        $this->assertEquals('SCOPE_PUBLIC', $meta['SCOPE_PUBLIC']->property);
+        $this->assertEquals('public', $meta['SCOPE_PUBLIC']->value);
+        $this->assertEquals('Public Label', $meta['SCOPE_PUBLIC']->data['label']);
+        $this->assertContains('Default', $meta['SCOPE_PUBLIC']->groups);
+
+        $this->assertEquals('SCOPE_PROTECTED', $meta['SCOPE_PROTECTED']->property);
+        $this->assertEquals('protected', $meta['SCOPE_PROTECTED']->value);
+        $this->assertEquals('Protected Label', $meta['SCOPE_PROTECTED']->data['label']);
+        $this->assertContains('Default', $meta['SCOPE_PROTECTED']->groups);
+
+        $this->assertEquals('SCOPE_PRIVATE', $meta['SCOPE_PRIVATE']->property);
+        $this->assertEquals('private', $meta['SCOPE_PRIVATE']->value);
+        $this->assertEquals('Private Label', $meta['SCOPE_PRIVATE']->data['label']);
+        $this->assertContains('Default', $meta['SCOPE_PRIVATE']->groups);
+    }
 }
